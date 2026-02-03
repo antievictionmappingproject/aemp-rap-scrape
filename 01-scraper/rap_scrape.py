@@ -114,7 +114,7 @@ xpath_dict = dict(
     address = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt146_block_wtColumn1"]/div/div[2]""",
     hearing_officer = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt189_block_wtColumn1"]/div[2]""",
     program_analyst = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt189_block_wtColumn2"]/div[2]""",
-    petition_type = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt188_block_wtColumn2"]/div/div[2]""",
+    petition_number = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt188_block_wtColumn2"]/div/div[2]""",
     date_filed = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt188_block_wtColumn3"]/div/div[2]""",
     hearing_date = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt16_block_wtColumn1"]/div[2]""",
     mediation_date = """//*[@id="wt101_OutSystemsUIWeb_wt10_block_wtContent_wtMainContent_OutSystemsUIWeb_wt16_block_wtColumn2"]/div/div[2]""",
@@ -132,8 +132,8 @@ driver = webdriver.Chrome()
 driver.get(url)
 
 # Limit to the search period and give the page enough time to process that.
-start_date = '09-01-2025'
-end_date = '11-01-2025'
+start_date = '03-01-2022'
+end_date = '12-31-2024'
 SetContext(driver, start_date, end_date)
 time.sleep(5)
 
@@ -159,7 +159,7 @@ output_data = pd.concat(pages) # join the dataframe for each page
 output_data['date_scraped'] = date.today()
 
 # Export the data
-filename = './data_{}_{}.csv'.format(''.join([s for s in start_date if s != '-']),
+filename = './data/raw/data_{}_{}.csv'.format(''.join([s for s in start_date if s != '-']),
                                      ''.join([s for s in end_date if s != '-']))
 output_data.to_csv(filename, index=False)
 print('{} records scraped.'.format(output_data.shape[0]))
